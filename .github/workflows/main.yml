@@ -1,35 +1,31 @@
-#workflow name
 name: CI_CD workflow
 
-#trigger
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
-#defines jobs
 jobs:
-    test_job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout code
-             uses: actions/checkout@v2
-             
-            - name: setup python
-             uses: actions/setup-python@v6
-             with:
-                python-version: "3.10"
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Install Depencies
-              run: pip install -r requirenments.txt
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
 
-              - name: run test cases
-               run: pytest --cov=calc --cov-report=term
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
 
+      - name: Run test cases
+        run: pytest --cov=calc --cov-report=term 
 
-    deploy_job:
-         runs-on: ubuntu-latest
-        needs: test-job
-        steps:
-            - name: print message
-            run: echo "deplou job started...."
+  deploy_job:
+    runs-on: ubuntu-latest
+    needs: test_job
+    steps:
+      - name: Print message
+        run: echo "Deploy job started...."
