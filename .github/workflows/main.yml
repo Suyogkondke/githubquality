@@ -23,11 +23,11 @@ jobs:
       - name: Run test cases
         run: pytest --cov=calc --cov-report=term --cov-report=html
 
-         - name: download code coverage report
-          uses: actions/upload-artifact@4
-          with:
-            name: html-code-cov-report
-            path: htmlcov/
+      - name: Upload code coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-code-cov-report
+          path: htmlcov/
 
   deploy_job:
     runs-on: ubuntu-latest
